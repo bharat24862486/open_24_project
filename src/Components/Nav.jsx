@@ -1,7 +1,18 @@
-import { Box, Flex, Input, Button } from "@chakra-ui/react";
+import { Box, Flex, Input, Button, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { Auth } from "../Context/Auth";
+import { useContext } from "react";
 
 const Nav = () => {
+  let {auth,setAuth,type,setType,info,setInfo} = useContext(Auth)
+
+
+  function logout(){
+    setAuth(false)
+    setInfo({})
+  }
+
+
   return (
     <Flex
       as="nav"
@@ -11,7 +22,7 @@ const Nav = () => {
       bg="red.500" 
       color="white"
     >
-      <Box fontSize="xl">Order 24*7</Box>
+      <Link to={'/'}><Heading >Order 24*7</Heading></Link>
       <Box display="flex" alignItems="center">
         <Input
           placeholder="Search..."
@@ -23,9 +34,10 @@ const Nav = () => {
       </Box>
       <Flex align="center">
         
-        <Box mr={4}>Orders</Box>
-        <Link to={'/admin'}><Button  bgColor={'white'} color={'red.500'} mr={4}>Admin</Button></Link>
-        <Button bgColor={'white'} color={'red.500'}>Sign-Up</Button> 
+        <Link to={'/orders'}><Box cursor={'pointer'} mr={4}>Orders</Box></Link>
+        {auth && info.Role=="Admin"? <Link to={'/admin'}><Button  bgColor={'white'} color={'red.500'} mr={4}>Admin</Button></Link>:''}
+        {auth?<Button onClick={logout} bgColor={'white'} color={'red.500'}>Log-Out</Button> : <Link to={'/login'}><Button bgColor={'white'} color={'red.500'}>Login</Button> </Link>}
+        {/* <Link to={'/login'}><Button bgColor={'white'} color={'red.500'}>Login</Button> </Link> */}
       </Flex>
     </Flex>
   );
