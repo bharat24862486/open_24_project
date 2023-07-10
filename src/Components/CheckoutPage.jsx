@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from "react";
 import { Auth } from "../Context/Auth";
 import { Link, useNavigate } from "react-router-dom";
 
+let url = "https://open247.onrender.com"
+
 const CheckoutPage = () => {
     const [order,setOrder] = useState([])
   const [formData, setFormData] = useState({
@@ -47,7 +49,7 @@ const CheckoutPage = () => {
     let obj = {
         Email: info.Email
     }
-    axios.post('http://localhost:5000/get_orders', obj).then((res) => setOrder(res.data)).catch((err) => console.log(err))
+    axios.post(`${url}/get_orders`, obj).then((res) => setOrder(res.data)).catch((err) => console.log(err))
 }, [])
 
 
@@ -55,7 +57,7 @@ function success(){
     let obj={
         Email: info.Email
     }
-    axios.post('http://localhost:5000/confirm_order',obj).then((res) => setOrder(res.data)).catch((err) => console.log(err))
+    axios.post(`${url}/confirm_order`,obj).then((res) => setOrder(res.data)).catch((err) => console.log(err))
     navigate("/successfull")
 }
 

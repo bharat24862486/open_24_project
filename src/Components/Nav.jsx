@@ -22,20 +22,24 @@ const Nav = () => {
       bg="red.500" 
       color="white"
     >
-      <Link to={'/'}><Heading >Order 24*7</Heading></Link>
+      <Link to={'/'}><Heading fontSize={['2rem','1.5rem','1.8rem','2rem']}>Order 24*7</Heading></Link>
       <Box display="flex" alignItems="center">
         <Input
           placeholder="Search..."
           variant="filled"
           mr={2}
-          width="300px"
+          width="100%"
         />
         <Button colorScheme="red" variant="outline" bgColor={'white'} _hover={{backgroundColor:"red.500", color:"white"}}>Search</Button> {/* Set colorScheme to red and use outline variant */}
       </Box>
       <Flex align="center">
         
-        <Link to={'/orders'}><Box cursor={'pointer'} mr={4}>Orders</Box></Link>
-        {auth && info.Role=="Admin"? <Link to={'/admin'}><Button  bgColor={'white'} color={'red.500'} mr={4}>Admin</Button></Link>:''}
+      {auth && info.Role == "User"? <Link to={'/'}><Box cursor={'pointer'} mr={4}>{info.Name}</Box></Link>:''}
+        {auth && info.Role == "User"? <Link to={'/trace'}><Box cursor={'pointer'} mr={4}>Trace Order</Box></Link>:''}
+        {auth && info.Role == "User"? <Link to={'/orders'}><Box cursor={'pointer'} mr={4}>Orders</Box></Link>:''}
+        {auth && info.Role == "Admin"? <Link to={'/adminallorder'}><Box cursor={'pointer'} mr={4}>Orders</Box></Link>:''}
+        {auth && info.Role == "Admin"? <Link to={'/adminorder'}><Box cursor={'pointer'} mr={4}>Pendings</Box></Link>:''}
+        {auth && info.Role=="Admin"? <Link to={'/admin'}><Button  bgColor={'white'} color={'red.500'} mr={4}>Add Item</Button></Link>:''}
         {auth?<Button onClick={logout} bgColor={'white'} color={'red.500'}>Log-Out</Button> : <Link to={'/login'}><Button bgColor={'white'} color={'red.500'}>Login</Button> </Link>}
         {/* <Link to={'/login'}><Button bgColor={'white'} color={'red.500'}>Login</Button> </Link> */}
       </Flex>

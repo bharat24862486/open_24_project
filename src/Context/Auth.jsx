@@ -9,9 +9,10 @@ const AuthProvider=({children})=>{
     const [info,setInfo] = useState({})
     // const [order,setOrder] = useState([])
     const [adminOrder,setAdminOrder] = useState([])
+    const [hamburger, setHamburger] = useState(false);
 
 
-    return <Auth.Provider value={{auth,setAuth,type,setType,info,setInfo}}>
+    return <Auth.Provider value={{auth,setAuth,type,setType,info,setInfo,hamburger, setHamburger}}>
         {children}
     </Auth.Provider>
 }

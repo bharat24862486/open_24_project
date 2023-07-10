@@ -1,15 +1,20 @@
-import { Box, Button, Input, FormControl, FormLabel } from "@chakra-ui/react";
+import { Box, Button, Input, FormControl, FormLabel, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 
+let url="https://open247.onrender.com"
+
+
+let init = {
+  Name: "",
+  Price: 0,
+  Quantity: 0,
+  Img: "",
+}
+
 const Admin = () => {
-  const [formData, setFormData] = useState({
-    Name: "",
-    ID: "",
-    Price: "",
-    Quantity: "",
-    Img: "",
-  });
+  const [formData, setFormData] = useState(init);
+  const toast = useToast()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +27,16 @@ const Admin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    axios.post('http://localhost:5000/add_dish',formData).then((res)=>console.log(res)).catch((err)=>console.log(err))
+    axios.post(`${url}/add_dish`,formData).then((res)=>{
+      toast({
+        description: "New Item added",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+        position: 'top-center'
+      })
+      setFormData(init)
+      alert(res.data)}).catch((err)=>console.log(err))
   };
 
   return (
@@ -37,15 +51,7 @@ const Admin = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>ID</FormLabel>
-          <Input
-            type="text"
-            name="ID"
-            value={formData.ID}
-            onChange={handleChange}
-          />
-        </FormControl>
+  
         <FormControl mb={4}>
           <FormLabel>Price</FormLabel>
           <Input

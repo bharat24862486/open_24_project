@@ -1,20 +1,22 @@
-import { Box, Flex, Image, Text, Badge, Button, Input, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Badge, Button, Input, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { Auth } from '../Context/Auth';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+let url = "https://open247.onrender.com"
+
 const ItemCard = ({ datas, data, setData }) => {
+  const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [bookingData, setBookingData] = useState({
-    Quantity: 0,
-  });
+  const [bookingData, setBookingData] = useState({});
   const [updateData, setUpdateData] = useState({
     ID: datas.ID,
     Img: datas.Img,
     Name: datas.Name,
     Price: datas.Price,
-    Quantity: datas.Quantity
+    Quantity: datas.Quantity,
+    _id: datas._id
 
   })
   const navigate = useNavigate();
@@ -28,24 +30,53 @@ const ItemCard = ({ datas, data, setData }) => {
   };
 
   const handleBookNow = () => {
+
     onOpen();
   };
 
   const handleBookNowSubmit = () => {
     if (auth) {
-      bookingData.ID = datas.ID;
+      console.log(datas._id, "dish id")
+      bookingData.dish_id = datas._id;
       bookingData.Email = info.Email;
       bookingData.Name = info.Name;
-      bookingData.Quantity = +bookingData.Quantity;
+      bookingData.Quantity = 1;
       bookingData.Img = datas.Img;
 
       axios
-        .post('http://localhost:5000/new_order', bookingData)
+        .post(`${url}/new_order`, bookingData)
         .then((res) => {
           if (typeof res.data !== 'string') {
-            alert('Item added successfully');
+            // toast({
+            //   description: "Item Already exist",
+            //   status: 'error',
+            //   duration: 9000,
+            //   isClosable: true,
+            //   position: 'top-center'
+            // })
+            
           } else {
-            alert(res.data);
+            if(res.data == "Item already exists"){
+              toast({
+                description: res.data,
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+                position: 'top-center'
+              })
+
+            } else{
+              toast({
+                description: res.data,
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+                position: 'top-center'
+              })
+
+            }
+            
+            
           }
         })
         .catch((err) => console.log(err));
@@ -58,10 +89,19 @@ const ItemCard = ({ datas, data, setData }) => {
 
   const handleDelete = () => {
     // Perform delete action
-    axios.delete(`http://localhost:5000/delete/${datas.ID}`).then((res) => {
-      axios.get('http://localhost:5000/')
+    axios.delete(`${url}/delete/${datas._id}`).then((res) => {
+      toast({
+        description: 'Item Deleted',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+        position: 'top-center'
+      })
+      
+      axios.get(`${url}`)
         .then(response => {
           // Handle the successful response
+
           setData(response.data);
         })
         .catch(error => {
@@ -87,8 +127,17 @@ const ItemCard = ({ datas, data, setData }) => {
   function submit(e) {
     e.preventDefault()
     console.log(updateData)
-    console.log(datas.ID)
-    axios.patch(`http://localhost:5000/update/${datas.ID}`, updateData).then((res) => alert(res.data)).catch((err) => console.log(err))
+    updateData.Quantity = +updateData.Quantity
+    console.log(datas._id)
+    axios.patch(`${url}/update/${datas._id}`, updateData).then((res) => {
+      toast({
+        description: res.data,
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+        position: 'top-center'
+      })
+      }).catch((err) => console.log(err))
     onClose()
   }
 
@@ -117,8 +166,8 @@ const ItemCard = ({ datas, data, setData }) => {
         <Text fontSize="sm" color="gray.500">
           Delhi
         </Text>
-        <Text fontSize="sm" mt={2}>
-          Price Range: {datas.Price}
+        <Text fontSize="md" mt={2} fontWeight={'600'}>
+        Price: ₹{datas.Price}
         </Text>
 
         {info.Role === 'Admin' ? 
@@ -132,7 +181,7 @@ const ItemCard = ({ datas, data, setData }) => {
         </Flex>
           
         : 
-          <Button colorScheme="red" mt={4} onClick={handleBookNow}>
+          <Button colorScheme="red" mt={4} onClick={handleBookNowSubmit}>
             Book Now
           </Button>
         }
@@ -156,10 +205,10 @@ const ItemCard = ({ datas, data, setData }) => {
             </Box>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" onClick={submit}>
+            <Button bgColor="red.500" color={'white'} onClick={submit}>
               Confirm
             </Button>
-            <Button ml={2} onClick={onClose}>
+            <Button bgColor="red.500" color={'white'} ml={2} onClick={onClose}>
               Cancel
             </Button>
           </ModalFooter>
