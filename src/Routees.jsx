@@ -13,6 +13,7 @@ import AdminOrder from './Components/AdminOrder'
 import UserTrace from './Components/UserTrace'
 import Signup from './Components/Signup'
 import AdminAllOrder from './Components/AdminAllOrder'
+import UserOrder from './Components/UserOrder'
 
 const Routees = () => {
   return (
@@ -23,7 +24,8 @@ const Routees = () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/adminorder' element={<AdminOrder />} />
         <Route path='/adminallorder' element={<AdminAllOrder />}/>
-        <Route path='/orders' element={<Private><FoodCart /></Private>} />
+        <Route path='/cart' element={<Private><FoodCart /></Private>} />
+        <Route path='/orders' element={<Private><UserOrder /></Private>} />
         <Route path='/checkout' element={<Private><CheckoutPage /></Private>} />
         <Route path='/successfull' element={<Private><PaymentSuccessPage /></Private>} />
         <Route path='/trace' element={<Private><UserTrace /></Private>} />

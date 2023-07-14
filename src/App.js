@@ -7,12 +7,24 @@ import Footer from './Components/Footer';
 import Admin from './Components/Admin';
 import Routees from './Routees';
 import MobNav from './Components/MobNav';
+import { useContext, useEffect } from 'react';
+import { Auth } from './Context/Auth';
+import Loading from './Components/Loading';
 
 function App() {
+  const {loading,setLoading} = useContext(Auth)
+  useEffect(()=>{
+        setTimeout(() => {
+            setLoading(false)
+        }, 5000);
+    },[])
+  if(loading){
+    return <Loading />
+  }
   return (
     <Box >
-      <Box display={['none','none','block','block']}><Nav /></Box>
-      <Box display={['block','block','none','none']}><MobNav /></Box>
+      <Box display={['none','none','none','block']}><Nav /></Box>
+      <Box display={['block','block','block','none']}><MobNav /></Box>
       <Routees />
       <Footer />
       

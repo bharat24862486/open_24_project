@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { Auth } from "../Context/Auth";
 import { Link, useNavigate } from "react-router-dom";
 
-let url = "https://open247.onrender.com"
+let url = "https://open24.onrender.com"
 
 const CheckoutPage = () => {
     const [order,setOrder] = useState([])

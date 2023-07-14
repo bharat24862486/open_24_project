@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import io from "socket.io-client"
 import UserTraceItem from './UserTraceItem'
 import { Auth } from '../Context/Auth'
-let ENDPOINT = "https://open247.onrender.com/"
-let url = "https://open247.onrender.com"
+let ENDPOINT = "https://open24.onrender.com"
+let url = "https://open24.onrender.com"
 
 const UserTrace = () => {
     let { auth, setAuth, type, setType, info, setInfo } = useContext(Auth)
@@ -25,9 +25,12 @@ const UserTrace = () => {
             let arr = []
             for(let i=0; i<msg.length;i++){
                 if(msg[i].Email == info.Email){
+                    
                     arr.push(msg[i])
                 }
+                
             }
+            console.log(msg)
             setData(arr)
         })
 

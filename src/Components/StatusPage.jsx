@@ -4,7 +4,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdCheckCircle } from "react-icons/md";
 
 
-let url = "https://open247.onrender.com"
+let url = "https://open24.onrender.com"
 
 
 const TraceOrderPage = ({status}) => {

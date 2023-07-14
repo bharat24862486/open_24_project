@@ -4,7 +4,7 @@ import { Auth } from '../Context/Auth';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-let url = "https://open247.onrender.com"
+let url = "https://open24.onrender.com"
 
 const ItemCard = ({ datas, data, setData }) => {
   const toast = useToast()

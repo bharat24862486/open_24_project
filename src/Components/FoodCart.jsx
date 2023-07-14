@@ -4,7 +4,7 @@ import { Auth } from "../Context/Auth";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-let url = "https://open247.onrender.com"
+let url = "https://open24.onrender.com"
 
 const FoodCart = () => {
   const { auth, setAuth, type, setType, info, setInfo } = useContext(Auth);

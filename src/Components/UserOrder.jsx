@@ -1,16 +1,22 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { Auth } from '../Context/Auth'
 import AdminAllOrderItem from './AdminAllOrderItem'
 
 let url = "https://open24.onrender.com"
 
-const AdminAllOrder = () => {
+const UserOrder = () => {
+    let { auth, setAuth, type, setType, info, setInfo } = useContext(Auth)
     const [data, setData] = useState([])
 
     useEffect(() => {
-        axios.get(`${url}/get_success_order`).then((res) => setData(res.data)).catch((err) => console.log(err))
+        let obj = {
+            Email: info.Email
+        }
+        axios.post(`${url}/get_success_order_with_email`, obj).then((res) => setData(res.data)).catch((err) => console.log(err))
     }, [])
+
 
     let obj = {}
 
@@ -35,6 +41,7 @@ const AdminAllOrder = () => {
         boss.push(obj[i])
     }
 
+
     let total = 0
 
     for(let i=0;i<boss.length;i++){
@@ -42,13 +49,6 @@ const AdminAllOrder = () => {
             total+=boss[i][j].Total
         }
     }
-
-
-
-
-
-
-
 
 
     return (
@@ -71,4 +71,4 @@ const AdminAllOrder = () => {
     )
 }
 
-export default AdminAllOrder
+export default UserOrder

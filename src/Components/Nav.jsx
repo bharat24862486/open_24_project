@@ -37,6 +37,7 @@ const Nav = () => {
       {auth && info.Role == "User"? <Link to={'/'}><Box cursor={'pointer'} mr={4}>{info.Name}</Box></Link>:''}
         {auth && info.Role == "User"? <Link to={'/trace'}><Box cursor={'pointer'} mr={4}>Trace Order</Box></Link>:''}
         {auth && info.Role == "User"? <Link to={'/orders'}><Box cursor={'pointer'} mr={4}>Orders</Box></Link>:''}
+        {auth && info.Role == "User"? <Link to={'/cart'}><Box cursor={'pointer'} mr={4}>Cart</Box></Link>:''}
         {auth && info.Role == "Admin"? <Link to={'/adminallorder'}><Box cursor={'pointer'} mr={4}>Orders</Box></Link>:''}
         {auth && info.Role == "Admin"? <Link to={'/adminorder'}><Box cursor={'pointer'} mr={4}>Pendings</Box></Link>:''}
         {auth && info.Role=="Admin"? <Link to={'/admin'}><Button  bgColor={'white'} color={'red.500'} mr={4}>Add Item</Button></Link>:''}

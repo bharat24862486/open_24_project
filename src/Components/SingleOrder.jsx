@@ -17,9 +17,9 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 
-let url = "https://open247.onrender.com"
+let url = "https://open24.onrender.com"
 
-const SingleOrder = ({ el,recall }) => {
+const SingleOrder = ({ el, recall }) => {
     let total = 0;
 
     for (let i = 0; i < el.length; i++) {
@@ -30,18 +30,18 @@ const SingleOrder = ({ el,recall }) => {
 
     let ref1 = useRef(null)
 
-    
+
 
     function submit() {
         console.log(ref1.current.value)
-        let obj={
+        let obj = {
             Status: ref1.current.value
         }
         console.log(el.length)
         console.log(el[0].order_id)
-        axios.patch(`${url}/status_change/${el[0].order_id}`,obj).then((res)=>{
+        axios.patch(`${url}/status_change/${el[0].order_id}`, obj).then((res) => {
             recall()
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err)
         })
         onClose()
@@ -62,16 +62,18 @@ const SingleOrder = ({ el,recall }) => {
             <Flex direction="row" alignItems={'center'} flex="1" justifyContent={'space-between'}>
                 <SimpleGrid columns={['2', '2', '3']} gap={'2%'}>
                     {el.map((ele) => {
-                        return <Image src={ele.Img} alt={"Image"} objectFit="cover" boxSize="60px" mr={4} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px;"}/>;
+                        return <Image src={ele.Img} alt={"Image"} objectFit="cover" boxSize="60px" mr={4} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px;"} />;
                     })}
                 </SimpleGrid>
 
-                <Text fontWeight={'600'} fontSize={['1rem', '1.1rem', '1.2rem', '1.3rem']}>
-                    Status: {el[0].Status === "Confirm" ? "Processing" : el[0].Status}
-                </Text>
-                <Button bgColor={'red.500'} color={'white'} onClick={onOpen}>
-                    Change Status
-                </Button>
+                <Flex w={['20%','40%','40%','40%']} justifyContent={'space-around'} alignItems={'center'} direction={['column','column','row','row']}>
+                    <Text fontWeight={'600'} fontSize={['0.8rem', '1.1rem', '1.2rem', '1.3rem']}>
+                        Status: {el[0].Status === "Confirm" ? "Processing" : el[0].Status}
+                    </Text>
+                    <Button fontSize={['0.8rem', '1.1rem', '1.2rem', '1.3rem']} bgColor={'red.500'} color={'white'} onClick={onOpen}>
+                        Change Status
+                    </Button>
+                </Flex>
 
                 <Flex direction={'column'} alignItems={'center'}>
                     <Text fontWeight={'600'} fontSize={['1rem', '1.1rem', '1.2rem', '1.3rem']}>Items: {el.length}</Text>
@@ -87,7 +89,7 @@ const SingleOrder = ({ el,recall }) => {
                     <ModalCloseButton />
                     <ModalBody>
                         <Select placeholder="Select status" ref={ref1}>
-                            
+
                             <option value="Ready">Ready</option>
                             <option value="Out of Delivery">Out of Delivery</option>
                             <option value="Delivered">Delivered</option>

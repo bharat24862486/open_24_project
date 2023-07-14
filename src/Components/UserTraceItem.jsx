@@ -15,14 +15,17 @@ const UserTraceItem = ({ el }) => {
             mt={'1%'}
             mb={'1%'}
             p={4}
+            direction={[
+                'column', 'column','row','row'
+            ]}
             borderRadius="md"
             display="flex"
             alignItems="center"
             justifyContent={'space-between'}
             boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px;"}
         >
-            <Box w={'40%'} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px;"} p={'3%'}>
-                <Flex direction="row" alignItems={'center'} flex="1" justifyContent={'space-between'} >
+            <Box w={['100%','100%','40%','40%']} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px;"} p={'3%'}>
+                <Flex direction="row"  alignItems={'center'} flex="1" justifyContent={'space-between'} >
                     <SimpleGrid columns={['2', '2', '2']}>
                         {el.map((ele) => {
                             return <Image src={ele.Img} alt={"Image"} objectFit="cover" boxSize="100px" mr={4} />;
@@ -36,7 +39,7 @@ const UserTraceItem = ({ el }) => {
                 </Flex>
             </Box>
 
-            <Box width={'40%'}><TraceOrderPage status={el[0].Status} /></Box>
+            <Box w={['100%','100%','40%','40%']}><TraceOrderPage status={el[0].Status} /></Box>
 
 
         </Flex>

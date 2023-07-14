@@ -4,7 +4,7 @@ import { useContext, useRef } from "react";
 import { Auth } from "../Context/Auth";
 import { Link, useNavigate } from "react-router-dom";
 
-let url = "https://open247.onrender.com"
+let url = "https://open24.onrender.com"
 
 export const Login = () => {
     const toast = useToast()
@@ -26,7 +26,7 @@ export const Login = () => {
                     isClosable: true,
                     position: 'top-center'
                   })
-                console.log('hello')
+                // console.log('hello')
                 setAuth(true)
                 setInfo(res.data)
                 navigate("/")

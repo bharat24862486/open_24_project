@@ -2,7 +2,7 @@ import { Box, Button, Input, FormControl, FormLabel, useToast } from "@chakra-ui
 import axios from "axios";
 import { useState } from "react";
 
-let url="https://open247.onrender.com"
+let url="https://open24.onrender.com"
 
 
 let init = {

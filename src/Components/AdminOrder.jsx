@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import SingleOrder from './SingleOrder'
 
 
-let url="https://open247.onrender.com"
+let url="https://open24.onrender.com"
 
 
 const AdminOrder = () => {
